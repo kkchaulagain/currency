@@ -1,0 +1,9 @@
+{
+    "name": "atwd1/assignment",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "require": {}
+}
