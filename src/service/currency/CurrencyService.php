@@ -7,10 +7,10 @@ use App\Lib\Convertor\Convertor;
 
 class CurrencyService
 {
-    public const DEFAULT_BASE_CURRENCY = 'USD';
+    public const DEFAULT_BASE_CURRENCY = 'GBP';
     public const CURRENCY_FILE_NAME = __DIR__ . '/../../../currency.xml';
 
-    public const DEFAULT_CURRENCY_ENDPOINT = 'https://freecurrencyapi.net/api/v2/latest?apikey=205cc040-594c-11ec-95cf-a791ab6e6457';
+    public const DEFAULT_CURRENCY_ENDPOINT = 'https://freecurrencyapi.net/api/v2/latest?apikey=205cc040-594c-11ec-95cf-a791ab6e6457&base_currency=' . self::DEFAULT_BASE_CURRENCY;
 
     protected $conversionHelper;
     public function __construct()
@@ -38,7 +38,7 @@ class CurrencyService
         if (isset($data[$currency])) {
             return  $data[$currency]['conversionRate'];
         }
-        throw new \Exception("Currency not supported");
+        throw new \Exception("Currency not supported",1200);
     }
 
 
@@ -72,12 +72,14 @@ class CurrencyService
                 'rate' => $val / $amount,
                 'from' => [
                     'code' => $from,
-                    'amnt' => $amount
+                    'amnt' => $amount,
+                    'loc' => $this->conversionHelper->response['currencies'][$from]['loc'] ?? ''
 
                 ],
                 'to' => [
                     'code' => $to,
-                    'amnt' => $val
+                    'amnt' => $val,
+                    'loc' => $this->conversionHelper->response['currencies'][$to]['loc'] ?? ''
                 ]
             ]
         ];

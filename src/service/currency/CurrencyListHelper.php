@@ -36,15 +36,15 @@ class CurrencyListHelper
     public function findByValue($value)
     {
         $array = $this->currencyLists['CcyTbl']['CcyNtry'];
-     
+        $data = [];
         foreach ($array as $val) {
             // var_dump($val);
             // die;
             if (strtolower($val['Ccy']) == strtolower($value)) {
 
-                return $val;
+                $data[] = $val;
             }
         }
-        return null;
+        return $data;
     }
 }

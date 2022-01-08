@@ -24,6 +24,10 @@ try {
     if (count($_GET) > 4) {
         throw new Exception("Too many Parametes. The allowed Paramaters are to, from, amnt and format", 1000);
     }
+    //if type string then throw exception
+    if(!is_numeric($_GET['amnt'])){
+        throw new Exception("Amount must be numeric", 1300);
+    }
     $res = [
         'conv' => (new CurrencyService())->convert($_GET["amnt"], $_GET["from"], $_GET["to"])
     ];
