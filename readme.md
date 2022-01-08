@@ -1,10 +1,16 @@
 # Currency Conversion 
 
+## installation 
+create a folder named atwd1
 
-git clone 
+inside the folder atwd1 insert the following command 
 
-you can name the folder in any way you want
+git clone   <url> assignment
+  
+## setup 
+composer install
 
+## view 
 you can open 
 /view.php for view 
 /update 
