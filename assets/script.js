@@ -5,7 +5,7 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     const data = serializeForm(this);
 
-    req('/update', data.action, JSON.stringify(data))
+    req('update', data.action, JSON.stringify(data))
         .then(function (response) {
             responseDom.innerHTML = response;
         }).catch(function (error) {
