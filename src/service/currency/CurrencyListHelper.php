@@ -40,10 +40,12 @@ class CurrencyListHelper
         foreach ($array as $val) {
             // var_dump($val);
             // die;
+if(isset($val['Ccy'])){
             if (strtolower($val['Ccy']) == strtolower($value)) {
 
                 $data[] = $val;
             }
+}
         }
         return $data;
     }
