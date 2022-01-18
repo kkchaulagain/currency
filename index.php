@@ -18,7 +18,7 @@ try {
     }
     # ensure PARAM values match the keys in $GET
     if (count(array_intersect(PARAMS, array_keys($_GET))) < 4) {
-        throw new Exception("Parameters Missing. The required Paramaters are to, from and amnt. All these paraneters are required", 1000);
+        throw new Exception("Parameters Missing. The required Paramaters are to, from and amnt. All these paraneters are required", 1100);
     }
     # ensure no extra params
     if (count($_GET) > 4) {
@@ -28,6 +28,7 @@ try {
     if(!is_numeric($_GET['amnt'])){
         throw new Exception("Amount must be numeric", 1300);
     }
+   
     $res = [
         'conv' => (new CurrencyService())->convert($_GET["amnt"], $_GET["from"], $_GET["to"])
     ];

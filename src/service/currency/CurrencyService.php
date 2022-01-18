@@ -38,28 +38,34 @@ class CurrencyService
         if (isset($data[$currency])) {
             return  $data[$currency]['conversionRate'];
         }
-        throw new \Exception("Currency not supported",1200);
+        throw new \Exception("Currency not supported", 1200);
     }
 
 
     public function convert($amount, $from, $to)
     {
+        if ($amount > 0) {
 
-        $config = [
-            'baseCurrency' => $from,
-            'targetCurrency' => self::DEFAULT_BASE_CURRENCY,
-            'amount' => $amount,
-            'conversionRate' => $this->getConversionRate($from)
-        ];
-        $baseValue = (new Convertor($config))->convertToBase();
 
-        $config = [
-            'baseCurrency' => self::DEFAULT_BASE_CURRENCY,
-            'targetCurrency' => $to,
-            'amount' => $baseValue,
-            'conversionRate' => $this->getConversionRate($to)
-        ];
-        $val =  (new Convertor($config))->convertFromBase();
+            $config = [
+                'baseCurrency' => $from,
+                'targetCurrency' => self::DEFAULT_BASE_CURRENCY,
+                'amount' => $amount,
+                'conversionRate' => $this->getConversionRate($from)
+            ];
+            $baseValue = (new Convertor($config))->convertToBase();
+
+            $config = [
+                'baseCurrency' => self::DEFAULT_BASE_CURRENCY,
+                'targetCurrency' => $to,
+                'amount' => $baseValue,
+                'conversionRate' => $this->getConversionRate($to)
+            ];
+            $val =  (new Convertor($config))->convertFromBase();
+        } else {
+            $amount = 0;
+            $val = 0;
+        }
         return $this->formatOutput($from, $to, $amount, $val);
     }
 
@@ -67,21 +73,20 @@ class CurrencyService
     public function formatOutput($from, $to, $amount, $val)
     {
         return [
-            [
-                'at' => date('Y-m-d H:i:s'),
-                'rate' => $val / $amount,
-                'from' => [
-                    'code' => $from,
-                    'amnt' => $amount,
-                    'loc' => $this->conversionHelper->response['currencies'][$from]['loc'] ?? ''
+            'at' => date('Y-m-d H:i:s'),
+            'rate' => $amount > 0 ? $val / $amount : 0,
+            'from' => [
+                'code' => $from,
+                'amnt' => $amount,
+                'loc' => $this->conversionHelper->response['currencies'][$from]['loc'] ?? ''
 
-                ],
-                'to' => [
-                    'code' => $to,
-                    'amnt' => $val,
-                    'loc' => $this->conversionHelper->response['currencies'][$to]['loc'] ?? ''
-                ]
+            ],
+            'to' => [
+                'code' => $to,
+                'amnt' => $val,
+                'loc' => $this->conversionHelper->response['currencies'][$to]['loc'] ?? ''
             ]
+
         ];
     }
 }

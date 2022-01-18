@@ -17,6 +17,7 @@ class XMLResponse implements Response
 
     public function send()
     {
+       
         $xml = new SimpleXMLElement('<root/>');
         $this->arrayToXml($this->body, $xml);
         return $xml->asXML();
