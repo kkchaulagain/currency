@@ -36,7 +36,7 @@ class CurrencyHelper
 
     public function updateCurrencyData()
     {
-        
+        date_default_timezone_set('Europe/London');
         $response = [
             'action' => [
                 'Attribute_type' => $this->method,
