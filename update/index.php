@@ -26,7 +26,9 @@ try {
     }
 
     $format =  'xml';
-    
+    $action = $method;
+
+
     $currencyHelper = new CurrencyHelper($action, $currency);
     $res = $currencyHelper->updateCurrencyData();
     $response = new Response(200, $res, $format);
