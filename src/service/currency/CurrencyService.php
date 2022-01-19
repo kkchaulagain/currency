@@ -79,13 +79,13 @@ class CurrencyService
             'rate' => $amount > 0 ? $val / $amount : 0,
             'from' => [
                 'code' => $from,
-                'amnt' => $amount,
+                'amnt' => round($amount,2),
                 'loc' => $this->conversionHelper->response['currencies'][$from]['loc'] ?? ''
 
             ],
             'to' => [
                 'code' => $to,
-                'amnt' => $val,
+                'amnt' => round($val,2),
                 'loc' => $this->conversionHelper->response['currencies'][$to]['loc'] ?? ''
             ]
 
