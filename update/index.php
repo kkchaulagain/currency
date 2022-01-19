@@ -29,6 +29,9 @@ try {
             throw new Exception("Parameter Missing. The required Paramater is curr", 2000);
         }
         $method =  strtoupper($_GET['action']);
+        if ($method == 'DEL') {
+            $method = 'DELETE';
+        }
         if($method != 'PUT' &&  $method != 'DELETE' && $method != 'POST' ){
             throw new Exception("Invalid action ", 2000);
         }
