@@ -95,6 +95,6 @@ class CurrencyHelper
         if (isset($data[$this->currency])) {
             return  $data[$this->currency];
         }
-        throw new \Exception("Currency not supported");
+        throw new \Exception("Currency not supported",2100);
     }
 }
