@@ -46,11 +46,13 @@ class CurrencyService
     {
         if ($amount > 0) {
 
+            // round to 2 decimal places
+
 
             $config = [
                 'baseCurrency' => $from,
                 'targetCurrency' => self::DEFAULT_BASE_CURRENCY,
-                'amount' => $amount,
+                'amount' => round($amount,2),
                 'conversionRate' => $this->getConversionRate($from)
             ];
             $baseValue = (new Convertor($config))->convertToBase();
@@ -58,7 +60,7 @@ class CurrencyService
             $config = [
                 'baseCurrency' => self::DEFAULT_BASE_CURRENCY,
                 'targetCurrency' => $to,
-                'amount' => $baseValue,
+                'amount' => round($baseValue,2),
                 'conversionRate' => $this->getConversionRate($to)
             ];
             $val =  (new Convertor($config))->convertFromBase();
