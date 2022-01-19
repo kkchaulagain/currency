@@ -41,6 +41,14 @@ class CurrencyService
         throw new \Exception("Currency not supported", 1200);
     }
 
+    public function is_decimal($amount) {
+        //check if the amount has decimal places
+          if (strpos($amount, '.') !== false) {
+              return true;
+          }
+          return false;
+      }
+      
 
     public function convert($amount, $from, $to)
     {
@@ -75,18 +83,19 @@ class CurrencyService
     public function formatOutput($from, $to, $amount, $val)
     {
         $rate = $amount > 0 ? $val / $amount : 0;
+        // $amount = $this->is_decimal($amount) ? $amount : number_format($amount, 2);
         return [
             'at' => date('Y-m-d H:i:s'),
             'rate' => round($rate,2),
             'from' => [
                 'code' => $from,
-                'amnt' => round($amount,2),
+                'amnt' => number_format($amount,2),
                 'loc' => $this->conversionHelper->response['currencies'][$from]['loc'] ?? ''
 
             ],
             'to' => [
                 'code' => $to,
-                'amnt' => round($val,2),
+                'amnt' => number_format($val,2),
                 'loc' => $this->conversionHelper->response['currencies'][$to]['loc'] ?? ''
             ]
 
