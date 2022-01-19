@@ -10,11 +10,8 @@ use App\Service\Currency\CurrencyService;
 try {
     //check if the amount has decimal places
     function is_decimal($amount) {
-        if (preg_match('/^[0-9]+(\.[0-9]{1,2})?$/',$amount)) {
-            return true;
-        } else {
-           return false;
-        }
+        $decimals = ( (int) $amount != $amount ) ? (strlen($amount) - strpos($amount, '.')) - 1 : 0;
+        return $decimals >= 2;
     }
     
 
@@ -36,7 +33,7 @@ try {
     }
     //if type string then throw exception
     //check if amount is decimal
-    if(!is_numeric($_GET['amnt']) || is_decimal($_GET['amnt'])){
+    if(!is_decimal($_GET['amnt'])){
         throw new Exception("Amount must be numeric", 1300);
     }
    
