@@ -26,7 +26,7 @@ try {
     }
     //if type string then throw exception
     //check if amount is decimal
-    if(!is_numeric($_GET['amnt']) && floor( $val ) != $val){
+    if(!is_numeric($_GET['amnt']) && !preg_match('/\.\d{3,}/', $number)){
         throw new Exception("Amount must be numeric", 1300);
     }
    
