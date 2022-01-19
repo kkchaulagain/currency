@@ -68,7 +68,9 @@ class CurrencyHelper
             ];
             return $response;
         } else if (strtoupper($this->method) == 'PUT') {
-
+            if(!isset($olData['currencies'][$this->currency])){
+                throw new \Exception("Currency not found . Why not try Post Method Instead?", 2300);
+            }
             if ($oldValue = $olData['currencies'][$this->currency]['conversionRate']) {
                 $olData['currencies'][$this->currency] = $this->update;
                 $olData['currencies'][$this->currency] = $this->update;
