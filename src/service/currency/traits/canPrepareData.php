@@ -33,14 +33,19 @@ trait canPrepareData
         $currencyHelper = new CurrencyListHelper();
         foreach ($currencies as  $currencyCode => $conversionRate) {
             $d = $currencyHelper->getDetailsByCurrencyCode($currencyCode);
+
             $loc = $this->getLocfromData($d);
             $d = current($d);
+            if (!is_array($d)) {
+                continue;
+            }
             $temp = [];
             $temp['currencyCode'] = $currencyCode;
+
             $temp['currencyName'] = $d['CcyNm'];
             $temp['conversionRate'] = $conversionRate;
             $temp['country'] = $d['CtryNm'];
-            $temp['loc']=implode(',', $loc);
+            $temp['loc'] = implode(',', $loc);
             $temp['countryCode'] = $currencyCode;
             $data['currencies'][$currencyCode] = $temp;
         }
