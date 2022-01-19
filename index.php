@@ -25,7 +25,8 @@ try {
         throw new Exception("Too many Parametes. The allowed Paramaters are to, from, amnt and format", 1000);
     }
     //if type string then throw exception
-    if(!is_numeric($_GET['amnt'])){
+    //check if amount is decimal
+    if(!is_numeric($_GET['amnt']) && floor( $val ) != $val){
         throw new Exception("Amount must be numeric", 1300);
     }
    
