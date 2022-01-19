@@ -74,9 +74,10 @@ class CurrencyService
 
     public function formatOutput($from, $to, $amount, $val)
     {
+        $rate = $amount > 0 ? $val / $amount : 0;
         return [
             'at' => date('Y-m-d H:i:s'),
-            'rate' => $amount > 0 ? $val / $amount : 0,
+            'rate' => round($rate,2),
             'from' => [
                 'code' => $from,
                 'amnt' => round($amount,2),
