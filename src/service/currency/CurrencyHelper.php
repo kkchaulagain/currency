@@ -61,7 +61,7 @@ class CurrencyHelper
             $olData['currencies'][$this->currency] = $this->update;
             XMLParser::parseAndSave($olData, $this->file);
             $response['action']['rate'] = $this->update['conversionRate'];
-            $response['curr'] = [
+            $response['action']['curr'] = [
                 'code' => $this->currency,
                 'name' => $this->update['currencyName'],
                 'loc'=> $olData['currencies'][$this->currency]['loc'],
@@ -76,7 +76,7 @@ class CurrencyHelper
 
                 $response['action']['rate'] = $this->update['conversionRate'];
                 $response['action']['old_rate'] = $oldValue;
-                $response['curr'] = [
+                $response['action']['curr'] = [
                     'code' => $this->currency,
                     'name' => $this->update['currencyName'],
                     'loc'=> $olData['currencies'][$this->currency]['loc']
