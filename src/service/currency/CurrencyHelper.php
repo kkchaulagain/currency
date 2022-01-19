@@ -36,10 +36,16 @@ class CurrencyHelper
 
     public function updateCurrencyData()
     {
+        
         $response = [
-            'action' => $this->method,
-            'at' => date('Y-m-d H:i:s'),
-            'code' => $this->currency,
+            'action' => [
+                'Attribute_type' => $this->method,
+                'at' => date('d F Y H:i'),
+                'curr' => [
+                    'code' => $this->currency,
+
+                ]
+            ]
         ];
 
         $olData = file_get_contents($this->file);
@@ -54,10 +60,11 @@ class CurrencyHelper
         } else if (strtoupper($this->method) == "POST") {
             $olData['currencies'][$this->currency] = $this->update;
             XMLParser::parseAndSave($olData, $this->file);
-            $response['rate'] = $this->update['conversionRate'];
+            $response['action']['rate'] = $this->update['conversionRate'];
             $response['curr'] = [
                 'code' => $this->currency,
                 'name' => $this->update['currencyName'],
+                'loc'=> $olData['currencies'][$this->currency]['loc'],
             ];
             return $response;
         } else if (strtoupper($this->method) == 'PUT') {
@@ -67,11 +74,12 @@ class CurrencyHelper
                 $olData['currencies'][$this->currency] = $this->update;
                 XMLParser::parseAndSave($olData, $this->file);
 
-                $response['rate'] = $this->update['conversionRate'];
-                $response['old_rate'] = $oldValue;
+                $response['action']['rate'] = $this->update['conversionRate'];
+                $response['action']['old_rate'] = $oldValue;
                 $response['curr'] = [
                     'code' => $this->currency,
                     'name' => $this->update['currencyName'],
+                    'loc'=> $olData['currencies'][$this->currency]['loc']
                 ];
                 return $response;
             } else {

@@ -34,6 +34,8 @@ class Response
     private function getBody()
     {
         if ($this->format == 'xml') {
+            // var_dump($this->body);
+            // die;
             $response = new XMLResponse($this->body);
         } elseif ($this->format == 'json') {
             $response = new JSONResponse($this->body);
