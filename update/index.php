@@ -13,7 +13,7 @@ try {
     if ($method == 'PUT' || $method == 'DELETE' || $method == 'POST') {
         $params = json_decode(file_get_contents('php://input'), true);
         if (count(array_intersect(PARAMS, array_keys($params))) < 2) {
-            throw new Exception("Parameters Missing. The required Paramaters are curr and action. All these paraneters are required", 1000);
+            throw new Exception("Parameters Missing. The required Paramaters are curr and action. All these paraneters are required", 2000);
         }
         # ensure no extra params
         if (count($params) > 3) {
@@ -21,8 +21,18 @@ try {
         }
         $currency = $params['curr'];
     } else {
+        //check if action is set
+        if (!isset($_GET['action'])) {
+            throw new Exception("Parameter Missing. The required Paramater is action", 2000);
+        }
+        if (!isset($_GET['curr'])) {
+            throw new Exception("Parameter Missing. The required Paramater is curr", 2000);
+        }
         $method =  strtoupper($_GET['action']);
-         $currency = $_GET['curr'];
+        if($method !== 'GET'){
+            throw new Exception("Invalid action ", 2000);
+        }
+        $currency = $_GET['curr'];
     }
 
     $format =  'xml';
