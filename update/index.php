@@ -24,7 +24,7 @@ try {
     if (count($params) > 3) {
         throw new Exception("Too many Parameters. The allowed Paramaters are curr and action", 1000);
     }
-    $format =  $_GET['format'] != 'json' ? 'xml' : 'json';
+    $format =  $_GET['format'] ?  $_GET['format']  : 'xml';
     $currency = $params['curr'];
     $action = $method;
 
@@ -44,7 +44,7 @@ try {
         ]
 
     ];
-    $format =  $_GET['format'] != 'json' ? 'xml' : 'json';
+    $format =  $_GET['format'] ?  $_GET['format']  : 'xml';
     $response = new Response(500, $res, $format);
     $response->send();
 }
