@@ -82,6 +82,8 @@ class CurrencyService
 
     public function formatOutput($from, $to, $amount, $val)
     {
+        //change timezone to Europe/London
+        date_default_timezone_set('Europe/London');
         $rate = $amount > 0 ? $val / $amount : 0;
         // $amount = $this->is_decimal($amount) ? $amount : number_format($amount, 2);
         return [
