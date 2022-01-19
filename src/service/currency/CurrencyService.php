@@ -85,7 +85,8 @@ class CurrencyService
         $rate = $amount > 0 ? $val / $amount : 0;
         // $amount = $this->is_decimal($amount) ? $amount : number_format($amount, 2);
         return [
-            'at' => date('Y-m-d H:i:s'),
+            //19 Jan 2020
+            'at' => date('d F Y'),
             'rate' => round($rate,2),
             'from' => [
                 'code' => $from,
