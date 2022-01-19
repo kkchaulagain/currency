@@ -13,7 +13,9 @@ try {
     if ($method == 'PUT' || $method == 'DELETE' || $method == 'POST') {
         $params = json_decode(file_get_contents('php://input'), true);
     } else {
-        throw new \Exception("Method Not allowed", 2500);
+        
+        $method = $_GET['action'];
+
     }
 
     # ensure PARAM values match the keys in $GET
