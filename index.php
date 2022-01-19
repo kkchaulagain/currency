@@ -8,6 +8,16 @@ use App\Lib\Response\Response;
 use App\Service\Currency\CurrencyService;
 
 try {
+    //check if the amount has decimal places
+    function is_decimal($amount) {
+        if (preg_match('/^[0-9]+(\.[0-9]{1,2})?$/',$amount)) {
+            return true;
+        } else {
+           return false;
+        }
+    }
+    
+
     define('PARAMS', array('to', 'from', 'amnt', 'format'));
     if (!isset($_GET['format']) || empty($_GET['format'])) {
         $_GET['format'] = 'xml';
@@ -26,7 +36,7 @@ try {
     }
     //if type string then throw exception
     //check if amount is decimal
-    if(!is_numeric($_GET['amnt']) && !preg_match('/\.\d{3,}/', $number)){
+    if(!is_numeric($_GET['amnt']) || is_decimal($_GET['amnt'])){
         throw new Exception("Amount must be numeric", 1300);
     }
    
