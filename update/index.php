@@ -58,6 +58,6 @@ try {
 
     ];
     $format =  'xml';
-    $response = new Response(500, $res, $format);
+    $response = new Response(200, $res, $format);
     $response->send();
 }
